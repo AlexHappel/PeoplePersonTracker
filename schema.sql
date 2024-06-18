@@ -16,5 +16,6 @@ CREATE TABLE IF NOT EXISTS employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     role_id INTEGER NOT NULL REFERENCES role(id),
-    manager_id INTEGER REFERENCES employee(id)
+    manager_id INTEGER REFERENCES employee(id),
+    UNIQUE (first_name, last_name)
 );
