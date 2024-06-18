@@ -1,20 +1,21 @@
--- company_db schema
-CREATE TABLE department (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(30) UNIQUE NOT NULL
-);
+-- seeds.sql
+INSERT INTO department (name)
+VALUES
+    ('Sales'),
+    ('Engineering'),
+    ('Finance')
+ON CONFLICT (name) DO NOTHING;
 
-CREATE TABLE role (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(30) UNIQUE NOT NULL,
-    salary DECIMAL NOT NULL,
-    department_id INTEGER NOT NULL REFERENCES department(id)
-);
+INSERT INTO role (title, salary, department_id)
+VALUES
+    ('Salesperson', 50000, 1),
+    ('Software Engineer', 80000, 2),
+    ('Accountant', 60000, 3)
+ON CONFLICT (title) DO NOTHING;
 
-CREATE TABLE employee (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
-    role_id INTEGER NOT NULL REFERENCES role(id),
-    manager_id INTEGER REFERENCES employee(id)
-)
+INSERT INTO employee (first_name, last_name, role_id, manager_id)
+VALUES
+    ('John', 'Doe', 1, NULL),
+    ('Jane', 'Smith', 2, NULL),
+    ('Mike', 'Johnson', 3, NULL)
+ON CONFLICT (first_name, last_name) DO NOTHING;
